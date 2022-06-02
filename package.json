@@ -1,0 +1,34 @@
+{
+  "name": "project",
+  "version": "1.0.0",
+  "description": "goals mearn application",
+  "main": "server.js",
+  "scripts": {
+    "start": " node backend/server.js ",
+    "server": "node backend/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RhinolamerSonwar/Mern-goals-app.git"
+  },
+  "keywords": [
+    "goals",
+    "setter",
+    "redux"
+  ],
+  "author": "Lameck Meshack",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RhinolamerSonwar/Mern-goals-app/issues"
+  },
+  "homepage": "https://github.com/RhinolamerSonwar/Mern-goals-app#readme",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "mongoose": "^6.3.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
+}
