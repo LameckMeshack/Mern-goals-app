@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "goals mearn application",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "start": " node backend/server.js ",
-    "server": "node backend/server.js"
+    "server": "nodemon backend/server.js"
   },
   "repository": {
     "type": "git",
