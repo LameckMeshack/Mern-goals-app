@@ -5,7 +5,7 @@ import Goal from "../models/goalModel.js";
 // @route   GET /api/goals
 // @access  Private
 export const getGoals = asyncHandler(async (req, res) => {
-  const goals = await Goal.find({ user: req.user.id });
+  const goals = await Goal.find({ user: req.user.id }); // user in the goal model is the user id
 
   res.status(200).json(goals);
 });
