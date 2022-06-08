@@ -8,11 +8,13 @@ function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
+
   const onLogout = () => {
     dispatch(logout());
     dispatch(reset());
     navigate("/");
   };
+
   return (
     <header className="header">
       <div className="logo">

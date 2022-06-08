@@ -28,6 +28,7 @@ function Register() {
     if (isSuccess || user) {
       navigate("/");
     }
+
     dispatch(reset());
   }, [user, isLoading, isError, isSuccess, message]);
 
@@ -40,6 +41,7 @@ function Register() {
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
   const onSubmit = (e) => {
     e.preventDefault();
     if (password !== password2) {
@@ -53,6 +55,7 @@ function Register() {
       dispatch(register(userData));
     }
   };
+
   if (isLoading) {
     return <Spinner />;
   }

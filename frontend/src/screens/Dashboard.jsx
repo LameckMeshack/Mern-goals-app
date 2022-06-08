@@ -34,6 +34,7 @@ function Dashboard() {
   if (isLoading) {
     return <Spinner />;
   }
+
   return (
     <div>
       <section className="heading">
