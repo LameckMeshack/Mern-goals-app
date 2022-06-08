@@ -9,6 +9,7 @@ const initialState = {
   message: "",
 };
 
+// Create user goal
 export const createGoal = createAsyncThunk(
   "goals/create",
   async (goalData, thunkAPI) => {
@@ -16,6 +17,46 @@ export const createGoal = createAsyncThunk(
       // const token = localStorage.getItem("token");
       const token = thunkAPI.getState().auth.user.token;
       return await goalsService.createGoal(goalData, token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+// Get user goals
+export const getGoals = createAsyncThunk(
+  "goals/getAll",
+  async (_, thunkAPI) => {
+    try {
+      // const token = localStorage.getItem("token");
+      const token = thunkAPI.getState().auth.user.token;
+      return await goalsService.getGoals(token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+// Delete user goal
+export const deleteGoal = createAsyncThunk(
+  "goals/delete",
+  async (goalId, thunkAPI) => {
+    try {
+      // const token = localStorage.getItem("token");
+      const token = thunkAPI.getState().auth.user.token;
+      return await goalsService.deleteGoal(goalId, token);
     } catch (error) {
       const message =
         (error.response &&
@@ -36,6 +77,7 @@ const goalSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      //posts goals
       .addCase(createGoal.pending, (state) => {
         state.isLoading = true;
       })
@@ -49,25 +91,36 @@ const goalSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
         state.goals = [];
+      })
+      // Get all goals
+      .addCase(getGoals.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getGoals.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.goals = action.payload;
+      })
+      .addCase(getGoals.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        state.goals = [];
+      })
+      // Delete goal
+      .addCase(deleteGoal.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteGoal.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.goals = state.goals.filter((goal) => goal._id !== action.payload);
+      })
+      .addCase(deleteGoal.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
       });
-
-    // Get all goals
-    // builder
-    //   .addCase(getGoals.pending, (state) => {
-    //     state.isLoading = true;
-    //   })
-    //   .addCase(getGoals.fulfilled, (state, action) => {
-    //     state.isLoading = false;
-    //     state.isSuccess = true;
-    //     state.goal = action.payload;
-    //   })
-    //   .addCase(getGoals.rejected, (state, action) => {
-    //     state.isLoading = false;
-    //     state.isError = true;
-    //     state.message = action.payload;
-    //     state.goal = [];
-    //   });
-    // Get goal by id
   },
 });
 
