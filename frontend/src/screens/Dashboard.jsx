@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import GoalForm from "../components/GoalForm";
 function Dashboard() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
@@ -11,7 +11,15 @@ function Dashboard() {
       navigate("/login");
     }
   }, [user, navigate]);
-  return <div>dashboard</div>;
+  return (
+    <div>
+      <section className="heading">
+        <h1>Welcome {user && user.name}</h1>
+        <p>Goals Dashboard</p>
+        <GoalForm />
+      </section>
+    </div>
+  );
 }
 
 export default Dashboard;
